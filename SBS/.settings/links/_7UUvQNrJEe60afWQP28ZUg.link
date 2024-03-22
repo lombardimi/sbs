@@ -1,0 +1,23 @@
+{
+  "itemId" : "_7UUvQNrJEe60afWQP28ZUg",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_xIGVYNrVEe60afWQP28ZUg",
+    "parameterList" : [ {
+      "id" : "_vfSSkNrXEe6hRK8hLdN9Iw",
+      "name" : "salesforce_api_version"
+    }, {
+      "id" : "_xIRUgdrVEe60afWQP28ZUg",
+      "name" : "salesforce_client_id"
+    }, {
+      "id" : "_xIRUg9rVEe60afWQP28ZUg",
+      "name" : "salesforce_client_secret"
+    }, {
+      "id" : "_xIRUgtrVEe60afWQP28ZUg",
+      "name" : "salesforce_domain"
+    }, {
+      "id" : "_xIRUhNrVEe60afWQP28ZUg",
+      "name" : "salesforce_user"
+    } ]
+  } ]
+}

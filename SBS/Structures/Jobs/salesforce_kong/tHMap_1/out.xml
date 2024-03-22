@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root t='150' id='1' V150='13' creationTimestamp='0x18e570497ab' V1='4' name='out' incarnation='8'>
+  <rootElem t='167' id='2' V167='21' V283='2' occurMaxTimes='1' minSize='-1' maxSize='-1' groupType='1' repHandlerStruct='' visible='true' inheritsFrom='' V281='13' V1='4' name='root'>
+    <structNode t='150' idref='1'/>
+    <child t='167' id='3' V167='21' inheritsFromIncarnation='-1' inheritsInThisStruct='true' V283='2' occurMaxTimes='1' minSize='-1' maxSize='-1' groupType='1' repHandlerStruct='' visible='true' inheritsFrom='Structures/KongRequest.xml' V281='13' V1='4' name='KongRequest' checksumValid='true' checksum='dlNfeyLWjN/Tsl1YNprpnJztCqo='>
+      <structNode t='150' idref='1'/>
+      <savedDerivedCopy t='167' id='4' V167='21' needInheritInit='true' inheritsInThisStruct='true' V283='2' occurMaxTimes='1' minSize='-1' maxSize='-1' dataType='2' repHandlerStruct='' visible='true' inheritsFrom='Structures/KongRequest.xml' V281='13' V1='4' name='KongRequest'>
+      </savedDerivedCopy>
+    </child>
+  </rootElem>
+  <defaultRep t='177' id='162' V177='1' V170='10' V697='1' V690='1' padOutput='true' encoding='UTF-8' importDate='Tue Mar 19 11:25:11 CET 2024' importFile='file:/C:/Program%20Files%20(x86)/TOS_DI-8.0.1/studio/workspace/MASERATI_1/JSON%20FILE/Talend%20Request.json' ignoreExcluded='true' fixInvalidCharacters='true' V1='4' name='JSON'>
+  </defaultRep>
+  <child t='162' id='5' V1='4' name='Representations'>
+    <child t='177' id='6' V177='1' V170='10' V697='1' V690='1' padOutput='true' ignoreExcluded='true' fixInvalidCharacters='true' V1='4' name='JSON'>
+    </child>
+  </child>
+  <child t='165' id='7' V1='4' name='Document Bindings'>
+  </child>
+</root>

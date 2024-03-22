@@ -1,0 +1,47 @@
+{
+  "itemId" : "_zWP-AOLjEe6J_Lh9u4wucw",
+  "contextList" : [ {
+    "contextName" : "Default",
+    "repoId" : "_b4cdgOLoEe6J_Lh9u4wucw",
+    "parameterList" : [ {
+      "id" : "_b4rHCOLoEe6J_Lh9u4wucw",
+      "name" : "bandReference"
+    }, {
+      "id" : "_dVvQouUGEe63Ffvixqeycw",
+      "name" : "CLIENT_ID"
+    }, {
+      "id" : "_dVvQo-UGEe63Ffvixqeycw",
+      "name" : "CLIENT_SECRET"
+    }, {
+      "id" : "_b4rHAuLoEe6J_Lh9u4wucw",
+      "name" : "KONG_AUTH_ENDPOINT"
+    }, {
+      "id" : "_b4rHA-LoEe6J_Lh9u4wucw",
+      "name" : "KONG_CLIENT_ID"
+    }, {
+      "id" : "_b4rHBOLoEe6J_Lh9u4wucw",
+      "name" : "KONG_CLIENT_SECRET"
+    }, {
+      "id" : "_b4rHB-LoEe6J_Lh9u4wucw",
+      "name" : "planId"
+    }, {
+      "id" : "_dVvQoeUGEe63Ffvixqeycw",
+      "name" : "US_API_BASE_URL"
+    }, {
+      "id" : "_dVvQoOUGEe63Ffvixqeycw",
+      "name" : "US_AUTH_ENDPOINT"
+    }, {
+      "id" : "_dVvQpuUGEe63Ffvixqeycw",
+      "name" : "US_DCREF"
+    }, {
+      "id" : "_b4rHAeLoEe6J_Lh9u4wucw",
+      "name" : "US_PARENT_ORG_ID"
+    }, {
+      "id" : "_b4rHAOLoEe6J_Lh9u4wucw",
+      "name" : "US_PWD"
+    }, {
+      "id" : "_dVvQp-UGEe63Ffvixqeycw",
+      "name" : "US_USERNAME"
+    } ]
+  } ]
+}

@@ -1,0 +1,252 @@
+{
+    "organisationGroups": [
+        {
+            "type": "Nomination",
+            "reference": "ParentSiteSfp",
+            "name": "ParentSiteSfpIntegration"
+        }
+    ],
+	"organisationReference":{
+		"reference": "",
+		"type": "",
+		"description": "",
+		"linkedOrganisationReference": ""
+	},
+    "organisation": {
+        "vatNumber": "7878",
+        "type": "DEALER",
+        "transferRules": "INANDOUT",
+        "tradingName": "tradingAsTest",
+        "taxRateJurisdiction": "US_TAX",
+        "subCreditStatus": "OK",
+        "salesTaxExempt": "YES",
+        "salesRegionCode": "787",
+        "salesAreaCode": "2494",
+        "region": {
+            "timeZoneId": "America/Los_Angeles",
+            "province": "WASHINGTON",
+            "locale": "en_US",
+            "country": "US"
+        },
+        "reference": "ParentSiteSfp",
+        "parentOrganisationId": "100001863",
+        "nonAccrualStatus": "NO",
+        "invoiceLanguage": "en_US",
+        "insuranceExempt": false,
+        "deliveryMethod": "EMAIL",
+        "dealingCompanyReference": "MBFS_US",
+        "currency": "USD",
+        "creditStatus": "OK",
+        "costCentreCode": "783",
+        "contacts": [
+            {
+                "title": "MRS",
+                "telephoneNo": "543",
+                "surname": "contactSfp",
+                "reference": "SiteContactSfpIntegration",
+                "preferredMethodOfContact": "EMAIL",
+                "postcode": "80026",
+                "position": "Business Development Center",
+                "mobileNo": "6543",
+                "locationName": "locnameRefSfpInt",
+                "invoiceAddress": true,
+                "firstName": "site",
+                "email": "test@test.com",
+                "defaultLocation": true,
+                "country": "ITA",
+                "contactType": "MAIN",
+                "addressType": "MAIN",
+                "addressReference": "locRefSfpInt",
+                "addressLine4": "state",
+                "addressLine3": "city",
+                "addressLine2": "address2",
+                "addressLine1": "address1"
+            }
+        ],
+        "companyRegistrationNumber": "787",
+        "companyName": "ParentSiteSfpIntegration",
+        "branding": "Default1",
+        "baseRateJurisdiction": "US_BANK",
+        "bankAccounts": [
+            {
+				"bankAccountType":"",
+				"accountName": "",
+				"accountNumber": "",
+				"bankSortCode": "",
+				"bic": "",
+				"iban": "",
+                "type": "External",
+                "reference": "BankAccountSfpIntegrationFinal",
+                "primaryAccount": true,
+				"externalBankAccountReference": "",
+                "mandates": []
+            }
+        ],
+        "auditRegionCode": "756",
+        "arrearsChargingStatus": "ON"
+    },
+    "insuranceLimits": [
+        {
+            "validForNonSupplierLoans": false,
+            "type": "EXTERNAL",
+            "reference": "InsuranceLimitForSfpIntegration",
+            "rate": 10,
+            "preExpiryToleranceDays": 60,
+            "policyNumber": "87654",
+            "facilities": [
+                {
+                    "reference": "AUCTION"
+                }
+            ],
+            "expirationDate": "2024-03-05",
+            "effectiveDate": "2024-03-04",
+            "discountRate": 10,
+            "currency": "USD",
+            "coverageAmount": 24000,
+            "assetTypes": [
+				{
+					"id" : "",
+					"reference": "CAR"
+                }
+            ],
+            "applyUtilisation": true,
+            "applyRisk": true,
+            "applyPipeline": true,
+            "applyClearing": true,
+            "applyArrears": true,
+            "allSupplierLoans": true
+        }
+    ],
+    "dealerBands": [
+        {
+            "subBand": "$0",
+            "effectiveDate": "2024-03-04",
+            "band": "ADMIN_FEE"
+        }
+    ],
+    "creditLines": [
+        {
+            "validForNonSupplierLoans": true,
+            "status": "OK",
+            "startDate": "2024-03-04",
+            "reference": "577084b4-c85e-4a6a-8d0d-d9397c4d9ab0",
+            "name": "CAP_LOAN_RL_LIMIT_US",
+            "limitType": "CREDIT_LINE",
+            "limit": 24000,
+            "facilities": [
+                {
+                    "reference": "CAP_LOAN"
+                }
+            ],
+            "dealingCompanyReference": "MBFS_US",
+            "currency": "USD",
+            "calculationType": "FIXED",
+            "assetTypes": [
+                "CUSTOM"
+            ],
+            "applyUtilisation": true,
+            "applyRisk": true,
+            "applyPipeline": true,
+            "applyClearing": true,
+            "applyArrears": true,
+            "allSupplierLoans": false
+        },
+        {
+            "validForNonSupplierLoans": false,
+            "toleranceType": "FIXED",
+            "status": "OK",
+            "startDate": "2024-03-04",
+            "reference": "LimitforSfpTest",
+            "name": "FLR_DFPN_US",
+            "limitType": "CREDIT_LINE",
+            "limit": 24000,
+            "facilities": [
+                {
+                    "reference": "NEW"
+                }
+            ],
+            "dealingCompanyReference": "MBFS_US",
+            "currency": "USD",
+            "calculationType": "FIXED",
+            "assetTypes": [
+                "CAR"
+            ],
+            "applyUtilisation": true,
+            "applyRisk": true,
+            "applyPipeline": true,
+            "applyClearing": true,
+            "applyArrears": true,
+            "allSupplierLoans": true
+        }
+    ],
+    "creditLimits": [
+        {
+            "validForNonSupplierLoans": false,
+            "toleranceType": "FIXED",
+            "status": "OK",
+            "startDate": "2024-03-04",
+            "reference": "LineforSfpTest",
+            "name": "FLR_DFPN_US",
+            "limitType": "CREDIT_LIMIT",
+            "limit": 24000,
+            "facilities": [
+                {
+                    "reference": "NEW"
+                }
+            ],
+            "dealingCompanyReference": "MBFS_US",
+            "currency": "USD",
+            "calculationType": "FIXED",
+            "assetTypes": [
+                "CAR"
+            ],
+            "applyUtilisation": true,
+            "applyRisk": true,
+            "applyPipeline": true,
+            "applyClearing": true,
+            "applyArrears": true,
+            "allSupplierLoans": true
+        }
+    ],
+	"paymentSources": [
+		{
+			"reference": "",
+			"currency": "",
+			"paymentMethod": "",
+			"debitCredit": "",
+			"dealingCompanyAccountReference": "",
+			"mandateReference": "",
+			"accountReference": "",
+			"paymentApproval": "",
+			"loanId": ""
+		}
+	],
+	"paymentSources": [
+		{
+			"reference":"",
+			"currency":"",
+			"paymentMethod":"",
+			"debitCredit":"",
+			"dealingCompanyAccountReference":"",
+			"mandateReference":"",
+			"accountReference":"",
+			"paymentApproval":"",
+			"loanId":"",
+			"valueType":"",
+            "transactionType":"",
+            "businessProcessType":"",
+            "levelType":"",
+            "facility":"",
+            "itemCategory":""
+		}
+	],
+	"harmonisedPayments": [
+		{
+			"adjustedProcessDateType": "",
+			"offset": "",
+			"harmonisationType": "",
+			"reference": "",
+			"harmonisationValues": ""
+		}
+	]
+}
