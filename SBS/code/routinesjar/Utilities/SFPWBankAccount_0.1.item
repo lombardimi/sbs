@@ -1,0 +1,54 @@
+package org.example.sbs.routinesjar.utilities;
+
+import java.util.ArrayList;
+
+import com.jayway.jsonpath.JsonPath;
+
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class SFPWBankAccount {
+
+	public String accountName;
+	public String accountNumber;
+	public String bankSortCode;
+	public String bic;
+	public String iban;
+	public String id;
+	public SFPWMandate[] mandates;
+	public Boolean primaryAccount;
+	public String reference;
+	public String bankAccountType;
+	public String externalBankAccountReference;
+	
+	public SFPWBankAccount(Object bankAccount) {
+		this.accountName = JsonPath.parse(bankAccount).read("$['Name']");
+		this.accountName = JsonPath.parse(bankAccount).read("$['DEP_Package__Account_Number__c']");
+		this.bankSortCode = JsonPath.parse(bankAccount).read("$['DEP_Package__Routing_Number__c']");
+		this.bic = JsonPath.parse(bankAccount).read("$['DEP_Package__BIC__c']");
+		this.iban = JsonPath.parse(bankAccount).read("$['DEP_Package__IBAN__c']");
+		this.id	= JsonPath.parse(bankAccount).read("$['DEP_Package__SFP_W_Id__c']");
+		//this.mandates = JsonPath.parse(bankAccount).read("$['BanksMandate__r']");
+		this.primaryAccount = JsonPath.parse(bankAccount).read("$['DEP_Package__Primary_Account__c']");
+		this.reference = JsonPath.parse(bankAccount).read("$['Name']");
+		this.bankAccountType = JsonPath.parse(bankAccount).read("$['DEP_Package__Type__c']");
+		if( this.bankAccountType == "EXTERNAL") {
+			this.externalBankAccountReference = JsonPath.parse(bankAccount).read("$['DEP_Package__External_Reference__c']");
+		}
+	}
+}

@@ -1,0 +1,140 @@
+package org.example.sbs.routinesjar.utilities;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import net.minidev.json.JSONArray;
+/*
+ * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
+ * it must be before the "{talendTypes}" key.
+ * 
+ * 2. {talendTypes} 's value must be talend Type, it is required . its value should be one of: String, char | Character,
+ * long | Long, int | Integer, boolean | Boolean, byte | Byte, Date, double | Double, float | Float, Object, short |
+ * Short
+ * 
+ * 3. {Category} define a category for the Function. it is required. its value is user-defined .
+ * 
+ * 4. {param} 's format is: {param} <type>[(<default value or closed list values>)] <name>[ : <comment>]
+ * 
+ * <type> 's value should be one of: string, int, list, double, object, boolean, long, char, date. <name>'s value is the
+ * Function's parameter name. the {param} is optional. so if you the Function without the parameters. the {param} don't
+ * added. you can have many parameters for the Function.
+ * 
+ * 5. {example} gives a example for the Function. it is optional.
+ */
+public class SFPWExistingOrganization {
+
+	public ArrayList<SFPWBankAccount> bankAccounts;
+	public String companyName;
+	public String companyRegistrationNumber;
+	public ArrayList<SFPWContact> contacts;
+	public String onWatchComment;
+	public String dealingCompanyReference;
+	public String id;
+	public String invoiceLanguage;
+	public Boolean insuranceExempt;
+	public String parentOrganisationId;
+	public String reference;
+	public SFPWRegion region;
+	public String tradingName;
+	public String type;
+	public String vatNumber;
+	public String branding;
+	public String currency_z;
+	public String arrearsChargingStatus;
+	public String businessCommencementDate; //LocalDate
+	public String costCentreCode;
+	public String profitCentreCode;
+	public String salesAreaCode;
+	public String salesRegionCode;
+	public String auditRegionCode;
+	public String transferRules;
+	public String salesTaxExempt;
+	public String deliveryMethod;
+	public String baseRateJurisdiction;
+	public String taxRateJurisdiction;
+	public SFPWNominatedOrg nominatedBankOrg;
+	public SFPWNominatedOrg nominatedCreditLineOrg;
+	public SFPWNominatedOrg nominatedInsuranceOrg;
+	public String nonAccrualStatus;
+	public String subCreditStatus;
+	public String creditStatus;
+	public ArrayList<SFPWOrganisationReference> organisationReferences;
+	public ArrayList<SFPWUserDefinedFields> wfsUserDefinedFields;
+	
+	public SFPWExistingOrganization(String record) {
+		Object bankAccsJson = JsonPath.parse(record).read("$['DEP_Package__Bank_Accounts__r']");
+		if(bankAccsJson != null) {
+			this.bankAccounts = new ArrayList<SFPWBankAccount>();
+			JSONArray bankAccList = new JSONArray();
+			bankAccList = JsonPath.read(bankAccsJson,"$['records']");
+			bankAccList.forEach(bankAcc -> {
+				this.bankAccounts.add(new SFPWBankAccount(bankAcc));
+			});
+		}
+		this.companyName = JsonPath.read(record,"$['Name']");
+		this.companyRegistrationNumber = JsonPath.read(record,"$['DEP_Package__Company_Reg_No__c']");
+		Object contactsJson = JsonPath.parse(record).read("$['DEP_Package__Site_Contacts__r']");
+		if(contactsJson != null) {
+			this.contacts = new ArrayList<SFPWContact>();
+			JSONArray recordList = new JSONArray();
+			recordList = JsonPath.read(contactsJson,"$['records']");
+			recordList.forEach(contact -> {
+				this.contacts.add(new SFPWContact(contact));
+			});
+		}
+		this.onWatchComment = (JsonPath.parse(record).read("$['DEP_Package__Dealer_s_Account__r']") != null) ? JsonPath.read(record,"$['DEP_Package__Dealer_s_Account__r']['DEP_Package__On_Hold_Reason__c']") : null;
+		this.dealingCompanyReference = JsonPath.read(record,"$['DEP_Package__Dealing_Company__c']");
+		this.id = JsonPath.read(record,"$['DEP_Package__SFP_W_Id__c']");
+		this.invoiceLanguage = JsonPath.read(record,"$['DEP_Package__InvoiceLanguage__c']");
+		this.insuranceExempt = JsonPath.read(record,"$['DEP_Package__Insurance_Exempt__c']");
+		//this.parentOrganisationId = JsonPath.read(record,"$['DEP_Package__Dealing_Company__c']"); logica mdt
+		this.reference = JsonPath.read(record,"$['DEP_Package__Reference_ID__c']");
+		//this.region = JsonPath.read(record,"$['DEP_Package__Dealing_Company__c']"); DEP_Package__SFPWRegion__mdt
+		this.tradingName = JsonPath.read(record,"$['DEP_Package__Trading_As__c']"); 
+		this.type = (JsonPath.parse(record).read("$['RecordType']") != null) ? JsonPath.read(record,"$['RecordType']['DeveloperName']") : null;
+		this.vatNumber = JsonPath.read(record,"$['DEP_Package__VAT_Number__c']");
+		this.branding = JsonPath.read(record,"$['DEP_Package__Branding__c']");
+		this.currency_z = JsonPath.read(record,"$['DEP_Package__Currency_Code__c']");
+		this.arrearsChargingStatus = JsonPath.read(record,"$['DEP_Package__Arrears_Charging_Status__c']");
+		this.businessCommencementDate = JsonPath.read(record,"$['DEP_Package__Business_Commencement_Date__c']");
+		this.costCentreCode = JsonPath.read(record,"$['DEP_Package__Cost_Centre__c']");
+		this.profitCentreCode = JsonPath.read(record,"$['DEP_Package__Profit_Centre__c']");
+		this.salesAreaCode = JsonPath.read(record,"$['DEP_Package__Sales_Area_Code__c']");
+		this.salesRegionCode = JsonPath.read(record,"$['DEP_Package__Sales_Region_Code__c']");
+		this.auditRegionCode = JsonPath.read(record,"$['DEP_Package__Audit_Region_Code__c']");
+		this.transferRules = JsonPath.read(record,"$['DEP_Package__Transfer_Rules__c']");
+		this.salesTaxExempt = JsonPath.read(record,"$['DEP_Package__Sales_Tax_Exempt__c']");
+		this.deliveryMethod = JsonPath.read(record,"$['DEP_Package__Document_Delivery__c']");
+		this.baseRateJurisdiction = JsonPath.read(record,"$['DEP_Package__BaseRateJurisdiction__c']");
+		this.taxRateJurisdiction = JsonPath.read(record,"$['DEP_Package__TaxRateJurisdiction__c']");
+		this.nominatedBankOrg = new SFPWNominatedOrg();
+		this.nominatedBankOrg.reference = (JsonPath.parse(record).read("$['DEP_Package__Nominated_To_Bank_Account__r']") != null) ? JsonPath.read(record,"$['DEP_Package__Nominated_To_Bank_Account__r']['DEP_Package__Reference_ID__c']") : null;
+		this.nominatedCreditLineOrg = new SFPWNominatedOrg();
+		this.nominatedCreditLineOrg.reference = (JsonPath.parse(record).read("$['DEP_Package__Nominated_To_Credit_Facility__r']") != null) ? JsonPath.read(record,"$['DEP_Package__Nominated_To_Credit_Facility__r']['DEP_Package__Reference_ID__c']") : null;
+		this.nominatedInsuranceOrg = new SFPWNominatedOrg();
+		this.nominatedInsuranceOrg.reference = (JsonPath.parse(record).read("$['DEP_Package__Nominated_To_Insurance_Limit__r']") != null) ? JsonPath.read(record,"$['DEP_Package__Nominated_To_Insurance_Limit__r']['DEP_Package__Reference_ID__c']") : null;
+		this.nonAccrualStatus = JsonPath.read(record,"$['DEP_Package__Non_Accrual_Status__c']");
+		this.subCreditStatus = JsonPath.read(record,"$['DEP_Package__Sub_Credit_Status__c']");
+		if(JsonPath.parse(record).read("$['DEP_Package__Parent_Organization__c']") != null 
+			&& JsonPath.parse(record).read("$['DEP_Package__Dealer_s_Account__r']") != null 
+			&& (Boolean)(JsonPath.parse(record).read("$['DEP_Package__Dealer_s_Account__r']['DEP_Package__On_Watch__c']")) 
+			&& JsonPath.parse(record).read("$['DEP_Package__Credit_Status__c']") != "ON_STOP" ) {
+			this.creditStatus = "ON_WATCH";
+		}else {
+			this.creditStatus = JsonPath.read(record,"$['DEP_Package__Credit_Status__c']");
+		}
+		Object organisationReferencesJson = JsonPath.parse(record).read("$['DEP_Package__Organisation_References__r']");
+		if(organisationReferencesJson != null) {
+			this.organisationReferences = new ArrayList<SFPWOrganisationReference>();
+			JSONArray organisationReferenceList = new JSONArray();
+			organisationReferenceList = JsonPath.read(organisationReferencesJson,"$['records']");
+			organisationReferenceList.forEach(orgRefer -> {
+				this.organisationReferences.add(new SFPWOrganisationReference(orgRefer));
+			});
+		}	
+		//this.wfsUserDefinedFields = new ArrayList<SFPWUserDefinedFields>(); FieldSet
+	}
+}
