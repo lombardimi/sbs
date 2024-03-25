@@ -1,7 +1,5 @@
 package org.example.sbs.routinesjar.utilities;
 
-import com.jayway.jsonpath.JsonPath;
-
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
  * it must be before the "{talendTypes}" key.
@@ -20,17 +18,24 @@ import com.jayway.jsonpath.JsonPath;
  * 
  * 5. {example} gives a example for the Function. it is optional.
  */
-public class SFPWRegion {
+public class CustomMetadataType {
 
-	public String country;
-	public String locale;
-	public String province;
-	public String timeZoneId;
+	public class SFPWContact{
+		public String DeveloperName;
+		public String addressType;
+		public String invoiceLanguage;
+		
+		public SFPWContact() {
+			this.DeveloperName = "SFPW_Contact_Field";
+			this.addressType = "MAIN";
+			this.invoiceLanguage = "en_GB";
+		}
+	}
 	
-	public SFPWRegion(String country, String locale, String province, String timeZoneId) {
-		this.country = country;
-		this.locale = locale;
-		this.province = province;
-		this.timeZoneId = timeZoneId;
+	public class SFPWRegion{
+		public String country;
+		public String local;
+		public String province;
+		public String timeZoneId;
 	}
 }

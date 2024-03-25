@@ -64,7 +64,7 @@ public class SFPWExistingOrganization {
 	public ArrayList<SFPWOrganisationReference> organisationReferences;
 	public ArrayList<SFPWUserDefinedFields> wfsUserDefinedFields;
 	
-	public SFPWExistingOrganization(String record) {
+	public SFPWExistingOrganization(String record, java.util.Map<String, String> mdtSFPWContactMap, java.util.Map<String, SFPWRegion> mdtSFPWRegionMap) {
 		Object bankAccsJson = JsonPath.parse(record).read("$['DEP_Package__Bank_Accounts__r']");
 		if(bankAccsJson != null) {
 			this.bankAccounts = new ArrayList<SFPWBankAccount>();
@@ -90,9 +90,14 @@ public class SFPWExistingOrganization {
 		this.id = JsonPath.read(record,"$['DEP_Package__SFP_W_Id__c']");
 		this.invoiceLanguage = JsonPath.read(record,"$['DEP_Package__InvoiceLanguage__c']");
 		this.insuranceExempt = JsonPath.read(record,"$['DEP_Package__Insurance_Exempt__c']");
-		//this.parentOrganisationId = JsonPath.read(record,"$['DEP_Package__Dealing_Company__c']"); logica mdt
+		if(JsonPath.parse(record).read("$['DEP_Package__Parent_Organization__c']") != null) {
+			this.parentOrganisationId = JsonPath.read(record,"$['DEP_Package__Parent_Organization__r']['DEP_Package__SFP_W_Id__c']");
+		} else {
+			String dealerCompany = JsonPath.parse(record).read("$['DEP_Package__Dealing_Company__c']");
+			this.parentOrganisationId = mdtSFPWContactMap.get(dealerCompany);
+		}
 		this.reference = JsonPath.read(record,"$['DEP_Package__Reference_ID__c']");
-		//this.region = JsonPath.read(record,"$['DEP_Package__Dealing_Company__c']"); DEP_Package__SFPWRegion__mdt
+		this.region = mdtSFPWRegionMap.get(JsonPath.read(record,"$['DEP_Package__Region_ValueSet__c']")); //DEP_Package__SFPWRegion__mdt
 		this.tradingName = JsonPath.read(record,"$['DEP_Package__Trading_As__c']"); 
 		this.type = (JsonPath.parse(record).read("$['RecordType']") != null) ? JsonPath.read(record,"$['RecordType']['DeveloperName']") : null;
 		this.vatNumber = JsonPath.read(record,"$['DEP_Package__VAT_Number__c']");

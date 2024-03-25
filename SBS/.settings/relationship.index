@@ -5,33 +5,29 @@
     "type" : "job"
   },
   "relatedItems" : [ {
+    "id" : "_b4cdgOLoEe6J_Lh9u4wucw",
+    "version" : "Latest",
+    "type" : "context"
+  }, {
     "id" : "_xIGVYNrVEe60afWQP28ZUg",
     "version" : "Latest",
     "type" : "context"
   }, {
-    "id" : "_OUD1wOX5Ee6tdei3-jUgpw",
+    "id" : "built-in",
     "version" : "Latest",
-    "type" : "mapper"
+    "type" : "context"
   }, {
-    "id" : "_TR9TEOa9Ee6tdei3-jUgpw",
+    "id" : "MASERATI_1:_FFq0cOUFEe63Ffvixqeycw",
     "version" : "Latest",
-    "type" : "mapper"
+    "type" : "job"
   }, {
-    "id" : "_gVnTkOeiEe60laIYANzGXA",
+    "id" : "MASERATI_1:_zWP-AOLjEe6J_Lh9u4wucw",
     "version" : "Latest",
-    "type" : "mapper"
-  }, {
-    "id" : "_gpMeQOefEe60laIYANzGXA",
-    "version" : "Latest",
-    "type" : "property"
+    "type" : "job"
   }, {
     "id" : "_mWwpYOdwEe60laIYANzGXA",
     "version" : "Latest",
     "type" : "routinesJar"
-  }, {
-    "id" : "_gpMeQOefEe60laIYANzGXA - metadata",
-    "version" : "Latest",
-    "type" : "schema"
   } ]
 }, {
   "baseItem" : {

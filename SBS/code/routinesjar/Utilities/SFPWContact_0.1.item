@@ -53,7 +53,9 @@ public class SFPWContact {
 		this.addressLine3 = JsonPath.parse(contact).read("$['DEP_Package__Town__c']");
 		this.addressLine4 = JsonPath.parse(contact).read("$['DEP_Package__County__c']");
 		this.addressReference = JsonPath.parse(contact).read("$['DEP_Package__Location_Reference__c']");
-		//this.addressType	= JsonPath.parse(contact).read("$['']"); Recuperare da mdt
+		CustomMetadataType cm = new CustomMetadataType();
+		CustomMetadataType.SFPWContact mdtContact = cm.new SFPWContact();
+		this.addressType = mdtContact.addressType; 
 		this.contactType = JsonPath.parse(contact).read("$['DEP_Package__Contact_Type__c']");
 		this.country = JsonPath.parse(contact).read("$['DEP_Package__Country_Code__c']");
 		this.defaultLocation = (Boolean)JsonPath.parse(contact).read("$['DEP_Package__Default_Location__c']");

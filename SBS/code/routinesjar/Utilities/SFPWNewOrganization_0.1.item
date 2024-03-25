@@ -1,4 +1,6 @@
 package org.example.sbs.routinesjar.utilities;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.*;
 
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
@@ -31,7 +33,17 @@ public class SFPWNewOrganization {
 	public SFPWInsuranceLimit[] insuranceLimits;
 	public SFPWHarmonisation[] harmonisedPayments;
 	
-	public SFPWNewOrganization(String record) {
-		this.organisation = new SFPWExistingOrganization(record);
+	public SFPWNewOrganization(String record, java.util.Map<String, String> mdtSFPWContactMap, java.util.Map<String, SFPWRegion> mdtSFPWRegionMap) {
+		this.organisation = new SFPWExistingOrganization(record, mdtSFPWContactMap, mdtSFPWRegionMap);
+	}
+	
+	public String getObjectJSONData(SFPWNewOrganization o) {
+		ObjectMapper Obj = new ObjectMapper(); 
+		try {
+			return Obj.writeValueAsString(o);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "";
+		}
 	}
 }
