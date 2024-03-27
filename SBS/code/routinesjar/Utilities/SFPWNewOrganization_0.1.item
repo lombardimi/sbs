@@ -1,5 +1,11 @@
 package org.example.sbs.routinesjar.utilities;
 import com.fasterxml.jackson.databind.*;
+import com.jayway.jsonpath.JsonPath;
+
+import net.minidev.json.JSONArray;
+
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.core.*;
 
 /*
@@ -23,18 +29,67 @@ import com.fasterxml.jackson.core.*;
 public class SFPWNewOrganization {
 
 	public SFPWExistingOrganization organisation;
-	public SFPWOrganisationGroup[] organisationGroups;
-	public SFPWGroupMember[] groupMembers;
-	public SFPWCreditLimitInformation[] creditLimits;
-	public SFPWCreditLimitInformation[] creditLines;
-	public SFPWDealerBands[] dealerBands;
-	public SFPWPaymentSource[] paymentSources;
-	public SFPWPaymentSource[] defaultPaymentSources;
-	public SFPWInsuranceLimit[] insuranceLimits;
-	public SFPWHarmonisation[] harmonisedPayments;
+	public ArrayList<SFPWOrganisationGroup> organisationGroups;
+	public ArrayList<SFPWGroupMember> groupMembers;
+	public ArrayList<SFPWCreditLimitInformation> creditLimits;
+	public ArrayList<SFPWCreditLimitInformation> creditLines;
+	public ArrayList<SFPWDealerBands> dealerBands;
+	public ArrayList<SFPWPaymentSource> paymentSources;
+	public ArrayList<SFPWPaymentSource> defaultPaymentSources;
+	public ArrayList<SFPWInsuranceLimit> insuranceLimits;
+	public ArrayList<SFPWHarmonisation> harmonisedPayments;
 	
-	public SFPWNewOrganization(String record, java.util.Map<String, String> mdtSFPWContactMap, java.util.Map<String, SFPWRegion> mdtSFPWRegionMap) {
-		this.organisation = new SFPWExistingOrganization(record, mdtSFPWContactMap, mdtSFPWRegionMap);
+	public SFPWNewOrganization(
+			String record, 
+			java.util.Map<String, String> mdtSFPWContactMap, 
+			java.util.Map<String, SFPWRegion> mdtSFPWRegionMap, 
+			java.util.Map<String, String> supplierPicklistMap
+	) {
+		this.organisation = new SFPWExistingOrganization(record, mdtSFPWContactMap, mdtSFPWRegionMap, supplierPicklistMap);
+		Boolean isParentSite = JsonPath.parse(record).read("$['DEP_Package__Parent_Organization__c']") == null; 
+		if(isParentSite) {
+			this.organisationGroups = new ArrayList<SFPWOrganisationGroup>();
+			this.organisationGroups.add(new SFPWOrganisationGroup(record));
+		}
+		Object groupMembersJson = JsonPath.parse(record).read("$['DEP_Package__Dealer_PLan_Junction1__r']");
+		if(groupMembersJson != null) {
+			this.groupMembers = new ArrayList<SFPWGroupMember>();
+			JSONArray groupMemberList = new JSONArray();
+			groupMemberList = JsonPath.read(groupMembersJson,"$['records']");
+			groupMemberList.forEach(groupMemb -> {
+				this.groupMembers.add(new SFPWGroupMember(groupMemb));
+			});
+			if (!isParentSite) {
+				SFPWGroupMember parentGroup = new SFPWGroupMember( JsonPath.parse(record).read("$['DEP_Package__Root_Reference_Id__c']"), JsonPath.parse(record).read("$['DEP_Package__Reference_ID__c']"));
+				this.groupMembers.add(parentGroup);
+			} else {
+				
+			}
+		}
+		Object creditLimitsJson = JsonPath.parse(record).read("$['DEP_Package__Credit_Facilities__r']");
+		if(creditLimitsJson != null) {
+			this.creditLimits = new ArrayList<SFPWCreditLimitInformation>();
+			this.creditLines =  new ArrayList<SFPWCreditLimitInformation>();
+			JSONArray creditLimitList = new JSONArray();
+			creditLimitList = JsonPath.read(creditLimitsJson,"$['records']");
+			creditLimitList.forEach(limit -> {
+				if((Boolean)JsonPath.parse(record).read("$['DEP_Package__Global_Limit_CapLoan__c']")) {
+					this.creditLines.add(new SFPWCreditLimitInformation(limit, this.organisation.dealingCompanyReference));
+				}else {
+					this.creditLimits.add(new SFPWCreditLimitInformation(limit, this.organisation.dealingCompanyReference));
+				}
+			});
+		}
+		
+		Object creditLinesJson = JsonPath.parse(record).read("$['DEP_Package__Credit_Facilities1__r']");
+		if(creditLinesJson != null) {
+			JSONArray creditLineList = new JSONArray();
+			creditLineList = JsonPath.read(creditLinesJson,"$['records']");
+			creditLineList.forEach(line -> {
+				this.creditLines.add(new SFPWCreditLimitInformation(line, ""));
+			});
+		}
+		
 	}
 	
 	public String getObjectJSONData(SFPWNewOrganization o) {

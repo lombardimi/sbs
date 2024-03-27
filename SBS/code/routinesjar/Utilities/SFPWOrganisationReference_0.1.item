@@ -31,11 +31,12 @@ public class SFPWOrganisationReference {
 	public String description;
 	HashMap<String, String> supplierApiNameToLabel;
 	
-	public SFPWOrganisationReference(Object bankAccount) {
-		this.id = JsonPath.parse(bankAccount).read("$['DEP_Package__SFP_W_Id__c']");
-		this.reference = JsonPath.parse(bankAccount).read("$['Name']");
-		this.referenceType = JsonPath.parse(bankAccount).read("$['DEP_Package__Type__c']");
-		//this.linkedOrganisationReference = JsonPath.parse(bankAccount).read("$['']"); 
-		this.description = JsonPath.parse(bankAccount).read("$['DEP_Package__Long_Description__c']");
+	public SFPWOrganisationReference(Object orgRefer, java.util.Map<String, String> supplierPicklistMap) {
+		this.id = JsonPath.parse(orgRefer).read("$['DEP_Package__SFP_W_Id__c']");
+		this.reference = JsonPath.parse(orgRefer).read("$['Name']");
+		this.referenceType = JsonPath.parse(orgRefer).read("$['DEP_Package__Type__c']");
+		String lor = JsonPath.parse(orgRefer).read("$['DEP_Package__LinkedOrganisationReference__c']");
+		this.linkedOrganisationReference = (lor != null) ? supplierPicklistMap.get(lor) : null;
+		this.description = JsonPath.parse(orgRefer).read("$['DEP_Package__Long_Description__c']");
 	}
 }

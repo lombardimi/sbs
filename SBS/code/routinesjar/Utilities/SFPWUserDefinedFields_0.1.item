@@ -22,4 +22,9 @@ public class SFPWUserDefinedFields {
 
 	public String fieldName;
 	public String value;
+	
+	public SFPWUserDefinedFields(String fieldName, String value) {
+		this.fieldName = fieldName;
+		this.value = value;
+	}
 }

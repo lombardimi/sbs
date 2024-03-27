@@ -1,5 +1,9 @@
 package org.example.sbs.routinesjar.utilities;
 
+import java.util.ArrayList;
+
+import com.jayway.jsonpath.JsonPath;
+
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
  * it must be before the "{talendTypes}" key.
@@ -32,10 +36,9 @@ public class CustomMetadataType {
 		}
 	}
 	
-	public class SFPWRegion{
-		public String country;
-		public String local;
-		public String province;
-		public String timeZoneId;
+	public ArrayList<SFPWUserDefinedFields> getSfpwUdfFieldSet(String record) {
+		ArrayList<SFPWUserDefinedFields> wfsUserDefinedFields = new ArrayList<SFPWUserDefinedFields>();
+		wfsUserDefinedFields.add(new SFPWUserDefinedFields("Business Partner Legal Entity Subtype",JsonPath.parse(record).read("$['DEP_Package__BusPartLglEntity_Subtype__c']")));
+		return wfsUserDefinedFields;
 	}
 }

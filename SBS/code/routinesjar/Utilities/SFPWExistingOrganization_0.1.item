@@ -1,6 +1,5 @@
 package org.example.sbs.routinesjar.utilities;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.jayway.jsonpath.DocumentContext;
@@ -64,7 +63,12 @@ public class SFPWExistingOrganization {
 	public ArrayList<SFPWOrganisationReference> organisationReferences;
 	public ArrayList<SFPWUserDefinedFields> wfsUserDefinedFields;
 	
-	public SFPWExistingOrganization(String record, java.util.Map<String, String> mdtSFPWContactMap, java.util.Map<String, SFPWRegion> mdtSFPWRegionMap) {
+	public SFPWExistingOrganization(
+			String record, 
+			java.util.Map<String, String> mdtSFPWContactMap, 
+			java.util.Map<String, SFPWRegion> mdtSFPWRegionMap, 
+			java.util.Map<String, String> supplierPicklistMap
+	) {
 		Object bankAccsJson = JsonPath.parse(record).read("$['DEP_Package__Bank_Accounts__r']");
 		if(bankAccsJson != null) {
 			this.bankAccounts = new ArrayList<SFPWBankAccount>();
@@ -137,9 +141,11 @@ public class SFPWExistingOrganization {
 			JSONArray organisationReferenceList = new JSONArray();
 			organisationReferenceList = JsonPath.read(organisationReferencesJson,"$['records']");
 			organisationReferenceList.forEach(orgRefer -> {
-				this.organisationReferences.add(new SFPWOrganisationReference(orgRefer));
+				this.organisationReferences.add(new SFPWOrganisationReference(orgRefer, supplierPicklistMap));
 			});
-		}	
-		//this.wfsUserDefinedFields = new ArrayList<SFPWUserDefinedFields>(); FieldSet
+		}
+		CustomMetadataType mdt = new CustomMetadataType();
+		this.wfsUserDefinedFields = mdt.getSfpwUdfFieldSet(record);
+		
 	}
 }

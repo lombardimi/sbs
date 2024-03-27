@@ -1,6 +1,9 @@
 package org.example.sbs.routinesjar.utilities;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.jayway.jsonpath.JsonPath;
 
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
@@ -22,7 +25,6 @@ import java.time.LocalDate;
  */
 public class SFPWCreditLimitInformation {
 
-	public transient String recordId;
 	public String id;
 	public String ownerId;
 	public String dealingCompanyReference;
@@ -30,15 +32,15 @@ public class SFPWCreditLimitInformation {
 	public String reference;
 	public String name;
 	public String calculationType;
-	public String currency_z;
-	public double limit_z;
+	public String currency;
+	public double limit;
 	public String status;
-	public String[] assetTypes;
-	public SFPWFacility[] facilities;
+	public ArrayList<String> assetTypes;
+	public ArrayList<SFPWFacility> facilities;
 	public String startDate; //LocalDate
 	public String endDate;
-	public SFPWUserDefinedFields[] userDefinedFields;
-	public SFPWSuppliers[] suppliers;
+	public ArrayList<SFPWUserDefinedFields> userDefinedFields;
+	public ArrayList<SFPWSuppliers> suppliers;
 	public Boolean allSupplierLoans;
 	public Boolean applyPipeline;
 	public Boolean applyUtilisation;
@@ -49,5 +51,37 @@ public class SFPWCreditLimitInformation {
 	public double tolerance;
 	public String toleranceType;
 	public String toleranceBehaviour;
-	public String[] tags;
+	public ArrayList<String> tags;
+	
+	public SFPWCreditLimitInformation(Object credit, String dealingCompanyReference) {
+		this.id = JsonPath.parse(credit).read("$['DEP_Package__SFP_W_Id__c']");
+		String dealerSiteLine = JsonPath.parse(credit).read("$['DEP_Package__Dealer_Site_Line__r']");
+		this.ownerId = (dealerSiteLine != null) ? JsonPath.parse(credit).read("$['DEP_Package__Dealer_Site_Line__r']['DEP_Package__SFP_W_Id__c']") : JsonPath.parse(credit).read("$['DEP_Package__Dealer_Site_Limit__r']['DEP_Package__SFP_W_Id__c']");
+		this.dealingCompanyReference = dealingCompanyReference;
+		this.limitType = ((Boolean)JsonPath.parse(credit).read("$['DEP_Package__Is_Line__c']")) ? "CREDIT_LINE" : "CREDIT_LIMIT";
+		this.reference = JsonPath.parse(credit).read("$['DEP_Package__Reference__c']");
+		this.name = JsonPath.parse(credit).read("$['Name']");
+		this.calculationType = JsonPath.parse(credit).read("$['DEP_Package__Calculation_Type__c']");
+		this.currency = JsonPath.parse(credit).read("$['DEP_Package__Currency_Code__c']");
+		this.limit = JsonPath.parse(credit).read("$['DEP_Package__Total_Credit_Limit_Amount__c']");
+		this.status = JsonPath.parse(credit).read("$['DEP_Package__Credit_Status__c']");
+		String assetCredFac = JsonPath.parse(credit).read("$['DEP_Package__Assets_Credit_Facility__c']");
+		this.assetTypes = (assetCredFac != null) ? new ArrayList<String>(Arrays.asList(assetCredFac.split(";"))) : null;
+		//this.facilities = JsonPath.parse(credit).read("$['Name']");
+		this.startDate = JsonPath.parse(credit).read("$['Name']");
+		this.endDate = JsonPath.parse(credit).read("$['Name']");
+		this.userDefinedFields = JsonPath.parse(credit).read("$['Name']");
+		this.suppliers = JsonPath.parse(credit).read("$['Name']");
+		this.allSupplierLoans = JsonPath.parse(credit).read("$['Name']");
+		this.applyPipeline = JsonPath.parse(credit).read("$['Name']");
+		this.applyUtilisation = JsonPath.parse(credit).read("$['Name']");
+		this.applyClearing = JsonPath.parse(credit).read("$['Name']");
+		this.applyRisk = JsonPath.parse(credit).read("$['Name']");
+		this.applyArrears = JsonPath.parse(credit).read("$['Name']");
+		this.validForNonSupplierLoans = JsonPath.parse(credit).read("$['Name']");
+		this.tolerance = JsonPath.parse(credit).read("$['Name']");
+		this.toleranceType = JsonPath.parse(credit).read("$['Name']");
+		this.toleranceBehaviour = JsonPath.parse(credit).read("$['Name']");
+		this.tags = JsonPath.parse(credit).read("$['Name']");
+	}
 }

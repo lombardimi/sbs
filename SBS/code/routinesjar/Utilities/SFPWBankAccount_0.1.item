@@ -1,7 +1,5 @@
 package org.example.sbs.routinesjar.utilities;
 
-import java.util.ArrayList;
-
 import com.jayway.jsonpath.JsonPath;
 
 /*

@@ -1,5 +1,7 @@
 package org.example.sbs.routinesjar.utilities;
 
+import com.jayway.jsonpath.JsonPath;
+import java.util.ArrayList;
 /*
  * user specification: the function's comment should contain keys as follows: 1. write about the function's comment.but
  * it must be before the "{talendTypes}" key.
@@ -21,5 +23,17 @@ package org.example.sbs.routinesjar.utilities;
 public class SFPWGroupMember {
 
 	public String groupRef;
-	public String[] orgRef;
+	public ArrayList<String> orgRef;
+	
+	public SFPWGroupMember(String groupRef, String orgRef) {
+		this.groupRef = groupRef;
+		this.orgRef = new ArrayList<String>();
+		this.orgRef.add(orgRef);
+	}
+
+	public SFPWGroupMember(Object groupMember) {
+		this.groupRef = JsonPath.parse(groupMember).read("$['DEP_Package__Authorised_Group_Of_Users__c']");
+		this.orgRef = new ArrayList<String>();
+		this.orgRef.add(JsonPath.parse(groupMember).read("$['DEP_Package__Dealer_Site_Name__c']"));
+	}
 }
